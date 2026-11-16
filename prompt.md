@@ -104,9 +104,9 @@ Simple capacity guides (state as rough): routing for a moderate flow (≤ a few 
 - **Running, per month (cash)** = cloud usage (items per month × cost per item, or seats × price) or GPU rental + power/hosting + staff time (FTE fraction × $12,500/month) + support contract. **Do not add hardware amortization here**: the purchase is already in setup, so it must not be counted twice.
 - **Total per year** = (AI running + human review) × 12. **3-year total** = setup + backlog (if any) + 36 × monthly (AI + human review). (Optionally mention the hardware spread over its life, e.g. "server ≈ $3,700–7,500/month over 5 years", as a comparison, not in the total.)
 - **Backlog vs flow:** if there is a one-off backlog (e.g. 14,000 contracts), cost it once (in setup or as a separate line) and keep the monthly line for the steady flow.
-- **Human review stays:** add the cost of people checking the AI's work, as its own line so the comparison with today is fair. If the user gave no figure: when the AI **drafts something a person sends or signs** (replies, plans), a person reads **every** item in ≈ 1/4 of today's time; when the AI **extracts or flags** (reviews, classification), people check the flagged or uncertain items (the share the user said needs judgment, else **10–20%**) in ≈ 1/4 of today's time. A personal assistant whose user checks every answer as part of their own work: write "part of the user's work". If today's time per item is unknown, write "not known".
+- **Human review stays:** add the cost of people checking the AI's work, as its own line so the comparison with today is fair. If the user gave no figure: when the AI **drafts something a person sends or signs** (replies, plans), a person reads **every** item in ≈ 1/5–1/3 of today's time; when the AI **extracts or flags** (reviews, classification), people check the flagged or uncertain items (the share the user said needs judgment, else **10–20%**) in ≈ 1/5–1/3 of today's time. A personal assistant whose user checks every answer as part of their own work: write "part of the user's work". If today's time per item is unknown, write "not known".
 - If the user gave the time per item today, show the **current manual cost** (items × hours × loaded hourly cost; assume **≈ $63/hour** if unknown, i.e. $190 for 3 hours). If the time per item is unknown, write "not known" in that row and do not invent it.
-- Compute with unrounded figures, then round results (2 significant digits). Give ranges (low – high), not false precision. Show every assumption in a short bullet list so the user can correct it.
+- Compute with unrounded figures, then round results (2 significant digits; use 3 if a low–high range would otherwise collapse into one number). Give ranges (low – high), not false precision. Show every assumption in a short bullet list so the user can correct it.
 
 ## Result format (keep it short, phone-readable, use these headings)
 
@@ -127,7 +127,7 @@ Simple capacity guides (state as rough): routing for a moderate flow (≤ a few 
 | Setup (one-time) | $… | $… |
 | One-off backlog, if any (AI + review) | $… | $… |
 | Running, per month (AI) | $… | $… |
-| Human review of flagged items, per month | $… | $… |
+| Human review (flagged or all items), per month | $… | $… |
 | Total per year (AI + human review) | $… | $… |
 | 3-year total | $… | $… |
 | Today's manual cost, per year (if known) | $… | |
@@ -139,6 +139,7 @@ Assumptions: (bullets: volumes, unit prices, life of hardware, FTE share, share 
 ## Style rules
 
 - One question per message during the interview. No long preambles.
+- Q4 accepts a mix (e.g. "extraction is standard, drafting is medium"): treat the standard part with R5 and say so.
 - Plain business language; explain any technical word in a few words.
 - Never invent the user's figures: use their answers, otherwise the reference figures, and say so.
 - If the user asks for a specific vendor or model, you may name examples, but keep the recommendation about the **deployment type**.

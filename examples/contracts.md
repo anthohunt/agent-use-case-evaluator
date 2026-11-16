@@ -1,6 +1,6 @@
 # Example: 14,000 supplier contracts
 
-A full test conversation run with `prompt.md` (November 2026 prices; all figures are estimates).
+A full test conversation run with `prompt.md` (November 2026 prices, estimates).
 
 ---
 
@@ -8,44 +8,44 @@ A full test conversation run with `prompt.md` (November 2026 prices; all figures
 
 ---
 
-**AI:** I noted: 14,000 contracts at once, then ~1,000/month.
+**AI:** I noted: a backlog of 14,000 contracts, then ~1,000 a month (large volume, option C).
 
-**Q1 — Volume.** Please confirm the size, and tell me how long a person takes per contract today (and roughly what it costs).
-- A. Small: under ~100 items/day
-- B. Medium: ~100 to 2,000 items/day
-- C. Large: over 2,000/day, or a big backlog then a steady flow
+**Q1 — Time per contract.** How long does a person take to review one contract today?
+- A. Under 1 hour
+- B. 1 to 4 hours
+- C. More than half a day
 
 Or tell me in your own words.
 
 ---
 
-**User:** C. A lawyer takes about 3 hours per contract today, roughly $190.
+**User:** B — a lawyer takes about 3 hours per contract, roughly $190.
 
 ---
 
 **AI:** **Q2 — Users.** How many people will use it, and how?
-- A. A few power users (≤ ~10, using it all day)
-- B. Many average users (dozens or more, a few requests a day)
-- C. Occasional users, or none (runs in the background as a batch)
+- A. A few power users (≤ ~10 people using it heavily, all day)
+- B. Many average users (dozens to thousands, a few requests a day each)
+- C. Occasional users, or no users at all (it runs in the background as a batch)
 
 Or tell me in your own words.
 
 ---
 
-**User:** C. It runs as a batch; about 8 people in procurement legal would check the flagged outputs.
+**User:** C — it runs as a batch. About 8 people in procurement legal would check the flagged outputs.
 
 ---
 
-**AI:** **Q3 — Data sensitivity.** Can these contracts be sent to a cloud AI provider under a business contract?
-- A. Yes, ordinary business data
-- B. Mixed: some are sensitive, others are not
-- C. No, everything must stay inside
+**AI:** **Q3 — Data sensitivity.** Can these contracts leave the company (sent to a cloud AI provider under a business contract)?
+- A. Yes, it is ordinary business data
+- B. Mixed: some contracts are sensitive, others are not
+- C. No, it must stay inside (confidential prices, legal privilege…)
 
 Or tell me in your own words.
 
 ---
 
-**User:** B. About 70% contain negotiated prices or confidential terms that must not leave the company; about 30% are standard templates that could go to a cloud AI.
+**User:** B — about 70% contain negotiated prices or confidential terms that must not leave the company; about 30% are standard templates that could go to a cloud AI.
 
 ---
 
@@ -54,11 +54,11 @@ Or tell me in your own words.
 - B. Medium (summarize, compare with some judgment)
 - C. Hard, multi-step (reasoning across many documents)
 
-If it is a mix, roughly what share is hard?
+If it is a mix, say roughly what share is hard. Or tell me in your own words.
 
 ---
 
-**User:** A, mostly. Most clauses are standard, but about 20% of contracts are non-standard and need real judgment.
+**User:** A, mostly — most clauses are standard, but about 20% of contracts are non-standard and need real judgment.
 
 ---
 
@@ -71,11 +71,11 @@ Or tell me in your own words.
 
 ---
 
-**User:** B. It's permanent.
+**User:** B — it's permanent.
 
 ---
 
-**AI:** **Q6 — Checked examples.** Do you have contracts where the correct answer is known (already reviewed by a lawyer)? They are used to test models and tune a small model.
+**AI:** **Q6 — Checked examples.** Do you have contracts where the correct answer is known (already reviewed by a lawyer)? They are used to test models and to tune a small model.
 - A. None
 - B. A few dozen (around 50)
 - C. Hundreds or more
@@ -84,62 +84,63 @@ Or tell me in your own words.
 
 ---
 
-**User:** C. We have about 300 contracts already reviewed by lawyers.
+**User:** C — about 300 contracts already reviewed by lawyers.
 
 ---
 
-**AI:** **Q7 — Internal skills.** Who would run the machines and the models?
+**AI:** **Q7 — Internal skills.** Who would run the hardware and the models?
 - A. Nobody: we only buy software as a service
-- B. Our IT team can install and maintain a workstation or server
-- C. We have an AI / ML or platform engineering team
+- B. Our IT team can install and maintain a workstation or a server
+- C. We have data-science, AI / ML or platform engineers (even a small team)
 
 Or tell me in your own words.
 
 ---
 
-**User:** C. IT can run servers, and we have a small data-science team.
+**User:** C — IT can run servers, and there is a small data-science team.
 
 ---
 
-**AI:** **Your case in one line:** risky-clause review of supplier contracts; 14,000 backlog then ~1,000/month (≈ 48/working day); batch, 8 reviewers; 70% confidential / 30% shareable; ~80% standard, ~20% need judgment; permanent.
+**AI:**
 
-**1. Recommended deployment: Routing (on 2 on-site workstations + frontier cloud AI for hard shareable contracts)**
-- Mixed data, 70% must stay inside (Q3 = B, R1) and large backlog with a mix of easy and hard contracts (Q1 = C, R7) → routing, so only shareable contracts can go to the cloud.
-- Mostly standard clauses + 300 lawyer-checked contracts (Q4 = A mostly, Q6 = C, R5) → a small tuned model (an open model trained on your examples) handles the standard part cheaply.
-- Batch with no daily users, ~48 contracts/day after the backlog (Q2 = C, R10) → one or two workstations as batch machines are enough; no shared server needed.
-- IT plus a data-science team (Q7 = C, R8) → realistic to build and run in-house.
+**Your case in one line:** Flag risky clauses in supplier contracts — 14,000 backlog then ~1,000/month (≈ 48/working day), batch with 8 reviewers, mixed sensitivity (70% confidential), ~80% standard / 20% need judgment, permanent.
 
-What it looks like:
-- Workstation 1: triage model (sorts each contract) + small tuned model for the ~80% standard contracts.
-- Workstation 2: bigger open model for hard confidential contracts (~14% of contracts); hard shareable ones (~6%) go to frontier cloud AI.
-- Uncertain or flagged clauses → the 8 procurement-legal reviewers.
+**1. Recommended deployment: Routing (mostly on site, small cloud branch)**
+- Why:
+  - Mixed data, 70% confidential (R1) → only the non-sensitive 30% may go to the cloud; routing keeps the rest inside.
+  - Large backlog + mix of sensitive/non-sensitive and easy/hard (R7) → a triage model sends each contract to the right place.
+  - Mostly standard + ~300 checked contracts (R5) → a small tuned model handles the standard 80% cheaply.
+  - Batch of ~48 contracts/day (R10) → two workstations are enough; data-science team in house (R8) → no integrator needed.
+- What it looks like:
+  - Workstation 1: triage model + small tuned model (an open model adapted to your clauses) for the ~80% standard contracts.
+  - Workstation 2: a bigger open model for non-standard contracts with confidential terms (~14% of contracts).
+  - Non-standard standard-template contracts (~6%) → frontier cloud AI; uncertain cases → a lawyer.
 
 **2. Alternatives**
-- **Shared on-site 8-GPU server** — main drawback: ≈ $220,000–450,000 plus ≥ 1 full-time person, far too big for ~48 contracts/day.
-- **Frontier cloud AI only** — main drawback: may only be used for the 30% standard templates; the 70% confidential contracts must stay inside (R1).
+- **Shared on-site 8-GPU server** — main drawback: ≈ $220,000–450,000 plus 1 full-time person, oversized for ~48 contracts a day.
+- **Fully on-site routing (no cloud branch)** — main drawback: the ~6% hard non-sensitive contracts get below-frontier quality (but it saves a cloud contract that costs only ≈ $6–18/month).
 
 **3. Estimated quote** (orders of magnitude, November 2026 prices)
 
 | | Low | High |
 |---|---|---|
 | Setup (one-time) | $47,000 | $130,000 |
-| One-off backlog, 14,000 contracts (AI + review) | $67,000 | $130,000 |
-| Running, per month (AI) | $670 | $1,400 |
-| Human review of flagged items, per month | $4,800 | $9,500 |
-| Total per year | $65,000 | $130,000 |
-| 3-year total | $310,000 | $660,000 |
-| Today's manual cost, per year (if known) | $2,300,000 | |
+| One-off backlog, if any (AI + review) | $130,000 | $130,000 |
+| Running, per month (AI) | $300 | $370 |
+| Human review of flagged items, per month | $9,500 | $9,500 |
+| Total per year (AI + human review) | $120,000 | $120,000 |
+| 3-year total | $530,000 | $620,000 |
+| Today's manual cost, per year (if known) | $2.3 M | |
 
 Assumptions:
-- Volumes: backlog 14,000 once; flow 1,000/month (your figures). Shares: 80% standard → small tuned model; 20% hard, of which 70% confidential (14% of all → on-site bigger model) and 30% shareable (6% of all → cloud), assuming sensitivity does not depend on difficulty.
-- Setup: 2 workstations at $8,000–16,000 each ($16,000–32,000) + routing integration $30,000–100,000 + tuning $1,000–2,000 (+ ≈ $26 API). No vendor fees (in-house team).
-- Running per month: cloud 60 contracts × $0.10–0.30 = $6–18; power 2 × $20–50 = $40–100; upkeep and model monitoring 0.05–0.1 FTE × $12,500 = $625–1,250. Hardware is in setup, not repeated here (spread over 3 years it would be ≈ $440–890/month).
-- Human review: 10–20% of contracts flagged (default, you gave no figure), each checked in ≈ 1/4 of today's time (0.75 h × $63/h = $47.50). Flow: 100–200 contracts = 75–150 h/month (≈ 9–19 h per reviewer). Backlog: 1,400–2,800 contracts = 1,050–2,100 h ≈ 16–33 working days for your 8 reviewers at 8 h/day; backlog cloud cost only $84–252.
-- Total per year = 12 × (AI + review). 3-year total = setup + backlog + 36 × (AI + review).
-- Today: flow 12,000 contracts/year × $190 = $2.3 M/year (36,000 lawyer hours); the backlog alone would be ≈ $2.7 M (42,000 hours).
-- Prices are November 2026 orders of magnitude; check them with suppliers.
+- Flow 1,000 contracts/month; backlog 14,000 once (manual: ≈ $2.7 M and 42,000 hours, for comparison).
+- Routes: 80% standard → small tuned model on site; 20% hard, of which 70% confidential → bigger open model on site (14%), 30% template → frontier cloud (6% = 60/month, 840 in the backlog) at ≈ $0.10–0.30 each.
+- Setup: 2 workstations at $8,000–16,000 each + routing integration $30,000–100,000 + tuning $1,000–2,000; no vendor (in-house team).
+- Running: cloud $6–18 + power $40–100 + IT upkeep 0.01 FTE per machine (2 × $125) per month; hardware not amortized here (≈ $220–450/month per workstation over 3 years, for comparison only).
+- Review: lawyers check the 20% that need judgment (200/month, 2,800 in the backlog) in ≈ 1/4 of today's time (0.75 h, ≈ $47.50 each) → 150 h/month for 8 people; backlog ≈ 2,100 h (≈ 260 h each).
+- Prices are November 2026 orders of magnitude; check with suppliers.
 
-**4. Before you decide: test on ~50 checked examples.** Run the same ~50 examples (with known correct answers) through the recommended option and one alternative (if you have none yet, have an expert check ~50 real items first: about 1–2 days of work); compare accuracy, time per item and cost per item; check what goes wrong on the misses. Decide only then. *These are estimates.*
+**4. Before you decide: test on ~50 checked examples.** Run the same ~50 examples (with known correct answers) through the recommended option and one feasible alternative (an option the rules did not exclude, or the same option with another model; if you have none yet, have an expert check ~50 real items first: about 1–2 days of work); compare accuracy, time per item and cost per item; check what goes wrong on the misses. Decide only then. *These are estimates.*
 
 Want me to change an assumption (volume, salaries, prices) and redo the quote?
 
@@ -147,7 +148,7 @@ Want me to change an assumption (volume, salaries, prices) and redo the quote?
 
 ## Test check
 
-- **Prompt followed:** yes. 7 questions, one per message, in order, each with A/B/C and a free-answer option; user's own figures used (3 h / $190, 8 reviewers, 70/30, 20%, 300 examples); result in the required headings, with the closing offer. Rules shown: R1, R7, R5, R10, R8.
-- **Arithmetic correct:** yes, checked (unrounded: setup $47,000–134,000; backlog $66,584–133,252; monthly AI $671–1,368; review $4,750–9,500; per year $65,052–130,416; 3-year $308,740–658,500; manual $2,280,000/year).
-- **Recommendation coherent:** yes. Routing on 2 workstations matches the capacity guide for a moderate flow; the cloud branch costs only ≈ $6–18/month, so it is kept for quality on hard shareable contracts, not for savings. Human review dominates running cost.
-- **Remaining prompt defects:** (1) Q1 bundles volume and time per item but its options only cover volume, so it cannot be cleanly "skipped" when the description gives the volume. (2) The result table has no backlog row and the 3-year formula ignores the backlog, although "Backlog vs flow" asks to cost it separately; the AI had to add a row. (3) Q7 has no option for "IT + small data-science team" (between B and C). (4) IT upkeep is given per 5–10 machines only, and the 10–20% flag default ignores the user's own "20% need judgment" share; both needed a judgment call.
+- **Prompt followed:** yes — one question per message, A/B/C options plus "Or tell me in your own words", 7 questions (Q1 asked only the missing time per contract, as the skip rule says), exact result format and closing offer.
+- **Arithmetic correct:** yes, verified with Python (e.g. review 1,000 × 20% × $190/4 = $9,500/month; 3-year low 47,000 + 133,084 + 36 × 9,796 = $532,740 → $530,000; high 134,000 + 133,252 + 36 × 9,868 = $622,500 → $620,000; manual 12,000 × $190 = $2.28 M).
+- **Recommendation coherent:** yes — routing on two workstations matches R1/R5/R7/R10; the quote shows that human review (≈ 97% of running cost) dominates and AI usage is negligible, which is the honest message (≈ $120,000/year vs ≈ $2.3 M today).
+- **Remaining prompt defects:** (1) when Q1's volume is given but not the time per item, the prompt requires A/B/C options but provides none for time, so the AI had to invent them; (2) the review rule equates "flagged items" with "the share that needs judgment", so low = high and review rows show no range; (3) no staff time for maintaining the triage/tuned models (retuning, monitoring), only 0.01 FTE per workstation, so running cost is likely understated; (4) section 4 does not say to keep the ~50 test contracts out of the tuning set.
