@@ -32,7 +32,34 @@ Then you get:
 
 ## Example: 14,000 supplier contracts
 
-EXAMPLE_PLACEHOLDER
+**Task:** review 14,000 supplier contracts for risky clauses, then ~1,000 new ones a month. A lawyer takes 3 h (≈ $190) per contract. 70% contain confidential terms, 30% are standard templates. 20% need real judgment. 300 contracts already checked by lawyers. In-house IT and a small data-science team.
+
+**Recommended: routing**
+- A small **triage model** reads every contract.
+- Standard contracts (~80%) → a **small model tuned** on the lawyer-checked examples, on site.
+- Hard + confidential (~14%) → a **bigger open model on site**.
+- Hard + standard template (~6%) → **frontier cloud AI**.
+- Uncertain cases → the 8 legal reviewers.
+- Hardware: **2 workstations**. No server needed for ~50 contracts a day.
+
+**Alternatives**
+- Fully on-site routing (no cloud) — the hard template contracts get slightly lower quality.
+- Shared 8-GPU server — ≈ $220k–450k + 1 full-time person: oversized.
+
+**Estimated quote**
+
+| | Low | High |
+|---|---|---|
+| Setup | $47,000 | $130,000 |
+| Backlog of 14,000 (AI + review) | $80,000 | $220,000 |
+| AI running / month | $920 | $1,600 |
+| Lawyer review of flagged / month | $5,700 | $16,000 |
+| **Per year** | **$79,000** | **$210,000** |
+| Today, by hand / year | $2,300,000 | |
+
+The backlog by hand: ≈ $2.7 M and ≈ 42,000 lawyer hours. Frontier cloud AI alone would cost ≈ $0.10 per contract (≈ $1,400 for all 14,000), but 70% of the contracts may not leave the company.
+
+**Next:** test on ~50 lawyer-checked contracts before deciding.
 
 Full conversation: [examples/contracts.md](examples/contracts.md).
 Other test runs: [supplier e-mails for 400 buyers](examples/supplier-emails.md) · [personal agent for 6 senior planners](examples/planner-agent.md).
