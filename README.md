@@ -64,6 +64,12 @@ Prices move fast: check with suppliers before you buy.
 
 > **These are estimates: test on ~50 checked examples before deciding.**
 
+## Install the Claude skill
+
+- **Claude apps (claude.ai, desktop):** download [agent-use-case-evaluator.zip](skill/agent-use-case-evaluator.zip), then upload it in Settings → Capabilities → Skills.
+- **Claude Code:** copy the folder `skill/agent-use-case-evaluator` into `~/.claude/skills/`.
+- Then just say: *"Evaluate this AI use case: …"*
+
 ## Files
 
 - [prompt.md](prompt.md) — the full prompt, works in any AI
