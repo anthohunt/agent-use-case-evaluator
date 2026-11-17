@@ -1,6 +1,22 @@
 {
   "permissions": {
     "defaultMode": "bypassPermissions",
-    "allow": ["Bash", "Read", "Write", "Edit", "WebSearch", "WebFetch", "Glob", "Grep", "Agent"]
+    "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "WebSearch",
+      "WebFetch",
+      "Glob",
+      "Grep",
+      "Agent"
+    ]
+  },
+  "env": {
+    "GIT_AUTHOR_NAME": "Anthony Hunt",
+    "GIT_AUTHOR_EMAIL": "anthony@ingevision.cloud",
+    "GIT_COMMITTER_NAME": "Anthony Hunt",
+    "GIT_COMMITTER_EMAIL": "anthony@ingevision.cloud"
   }
 }
